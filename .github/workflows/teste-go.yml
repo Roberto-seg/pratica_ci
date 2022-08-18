@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  build:
+  teste:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -17,9 +17,6 @@ jobs:
       uses: actions/setup-go@v3
       with:
         go-version: 1.18
-
-    - name: Build
-      run: go build -v main.go
       
     - name: Build-DB 
       run: docker-compose build 
@@ -29,3 +26,13 @@ jobs:
 
     - name: Test
       run: go test -v main_test.go
+      
+      
+  build: 
+    needs: teste
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Build
+      run: go build -v main.go
